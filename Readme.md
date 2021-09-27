@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [ALEKCEI GRETCKII](https://up.htmlacademy.ru/javascript/24/user/1206661).
-* Наставник: `Неизвестно`.
+* Наставник: [YEHOR HLIEBOV]
 
 ---
 
