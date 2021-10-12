@@ -1,8 +1,7 @@
-const randomInteger = function (from, to) {
+const getRandomInteger = function (from, to) {
   if (from >= 0 && to >= 0) {
     if (to > from) {
-      const number = Math.floor(Math.random() * (to - from) + from);
-      return number;
+      return Math.floor(Math.random() * (to - from) + from);
     } else {
       return 'значение до меньше или ровно значению от - так нельзя';
     }
@@ -12,29 +11,13 @@ const randomInteger = function (from, to) {
   }
 };
 
-randomInteger (3, 33);
+getRandomInteger (3, 33);
 
-const lengthCheck = function (stringToCheck, maxLength) {
-  if (stringToCheck <= maxLength) {
-    return true;
-  } else {
-    return false;
-  }
+const checkStringLength = function (stringToCheck, maxLength) {
+  return stringToCheck <= maxLength;
 };
 
-lengthCheck (100, 500);
-
-
-///////////////////////////////////////////////////////////////////////////////////////////
-
-
-// const IDNUMBER = [
-//   //рандомное число 1-25, не должен повторяться
-// ];
-
-// const URLADDRESS = [
-//   //рандомное число 1-25, не должен повторяться
-// ];
+checkStringLength (100, 500);
 
 const DESCRIPTION = [
   'смотрю в окно',
@@ -42,10 +25,6 @@ const DESCRIPTION = [
   'ем торт',
   'ковыряю в носу',
 ];
-
-// let likesAmount = [
-//   //рандомное число 15-200
-// ];
 
 const MESSAGES = [
   'Всё отлично!',
@@ -55,16 +34,6 @@ const MESSAGES = [
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
-
-// let comments = [
-//   {
-//     id: 777,
-//     avatar: '',
-//     message: '',
-//     name: '',
-//   }
-// ]
-
 
 const NAMES = [
   'Александр',
@@ -94,11 +63,7 @@ const NAMES = [
   'Руслан',
 ];
 
-const commenstAmount = 3;
-
-// generateComment ();
-// console.log(groupOfComments);
-
+const COMMENTS_AMOUNT = 3;
 
 const USER_AMOUNT = 25;
 
@@ -109,51 +74,53 @@ const PHOTO_NUMBERS = createArrayOrderedNumbers(USER_AMOUNT);
 const COMMENT_IDS = createArrayOrderedNumbers(USER_AMOUNT);
 
 const getRandomArrayElement = (elements) => {
-  const random = randomInteger (0, elements.length - 1);
-  const result = elements[random];
-  elements.splice(random, 1);
-  return result;
+  const RANDOM = getRandomInteger (0, elements.length);
+  const RESULT = elements[RANDOM];
+  elements.splice(RANDOM, 1);
+  return RESULT;
 };
 
-const generateUser = () => {
-  const randomName = NAMES[randomInteger(0, NAMES.length - 1)];
-  const randomID = getRandomArrayElement(DESCRIPTION_IDS);
-  const randomURL = getRandomArrayElement(PHOTO_NUMBERS);
-  const randomDescription = DESCRIPTION[randomInteger(0, DESCRIPTION.length - 1)];
-  const randomLikes = randomInteger(15, 200);
-
-  const generateComment = () => {
-    const COMMENTID = getRandomArrayElement(COMMENT_IDS);
-    const COMMENTORNAME = NAMES[randomInteger(0, NAMES.length - 1)];
-    const randomImg = randomInteger(1, 6);
-    const randomMessage = MESSAGES[randomInteger(1,6)];
-
-
-    return {
-      commentId: COMMENTID,
-      avatar: `img/avatar-${  randomImg  }.svg`,
-      message: randomMessage,
-      name: COMMENTORNAME,
-    };
-  };
-  const groupOfComments = Array.from({length: commenstAmount}, generateComment);
+const generateComment = () => {
+  const COMMENT_ID = getRandomArrayElement(COMMENT_IDS);
+  const COMMENTOR_NAME = NAMES[getRandomInteger(0, NAMES.length - 1)];
+  const RANDOM_IMG = getRandomInteger(1, 6);
+  const RANDOM_MESSAGE = MESSAGES[getRandomInteger(1,6)];
 
 
   return {
-    name: randomName,
-    id: randomID,
-    url: `photos/${  randomURL  }.jpg`,
-    description: randomDescription,
-    likes: randomLikes,
+    commentId: COMMENT_ID,
+    avatar: `img/avatar-${  RANDOM_IMG  }.svg`,
+    message: RANDOM_MESSAGE,
+    name: COMMENTOR_NAME,
+  };
+};
+
+
+const generateUser = () => {
+  const RANDOM_NAME = NAMES[getRandomInteger(0, NAMES.length - 1)];
+  const RANDOM_ID = getRandomArrayElement(DESCRIPTION_IDS);
+  const RANDOM_URL = getRandomArrayElement(PHOTO_NUMBERS);
+  const RANDOM_DESCRIPTION = DESCRIPTION[getRandomInteger(0, DESCRIPTION.length - 1)];
+  const RANDOM_LIKES = getRandomInteger(15, 200);
+
+  const COMMENTS_GROUP = Array.from({length: COMMENTS_AMOUNT}, generateComment);
+
+
+  return {
+    name: RANDOM_NAME,
+    id: RANDOM_ID,
+    url: `photos/${  RANDOM_URL  }.jpg`,
+    description: RANDOM_DESCRIPTION,
+    likes: RANDOM_LIKES,
     comments: {
-      groupOfComments,
+      groupOfComments: COMMENTS_GROUP,
     },
   };
 
 };
 
-const packOfUsers = Array.from({length: USER_AMOUNT}, generateUser);
+const USERS = Array.from({length: USER_AMOUNT}, generateUser);
 
 generateUser ();
 // eslint-disable-next-line no-console
-console.log(packOfUsers);
+console.log(USERS);
