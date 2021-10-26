@@ -29,6 +29,6 @@ drawPicture.appendChild(fragment);
 
 
 // Подключите модуль в проект.
-// export {createPictures};
+export {fragment};
 
 
