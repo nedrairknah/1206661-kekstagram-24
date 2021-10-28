@@ -1,24 +1,25 @@
 //импортирую юзеров
-import {USERS} from './generate-user';
+import {USERS} from './generate-user.js';
 
 //нахожу шаблон
-const drawPicture = document.querySelector('.picture');
+const drawPicture = document.querySelector('.pictures');
 
-const pictureTemplate = document.querySelector('#picture')
-  .content;
+const templateFragment = document.querySelector('#picture').content;
+const templateImage = templateFragment.querySelector('a');
+
+// передаю массив в переменную
+const similarPictures = USERS;
 
 // создаю контейнер
 const fragment = document.createDocumentFragment();
 
-// передаю массив в переменную
-const similarPictures = USERS();
 
 // каждый элемент проходим и передаем в элемент
-similarPictures.forEach((user) => {
-  const pictureElement = pictureTemplate.cloneNode(true);
-  pictureElement.querySelector('.picture__img').src = user.url;
-  pictureElement.querySelector('.picture__likes').textContent = user.likes;
-  pictureElement.querySelector('.picture__comments').textContent = user.comments.length;
+similarPictures.forEach(({url, likes, comments}) => {
+  const pictureElement = templateImage.cloneNode(true);
+  pictureElement.querySelector('.picture__img').src = url;
+  pictureElement.querySelector('.picture__likes').textContent = likes;
+  pictureElement.querySelector('.picture__comments').textContent = comments.length;
 
   // складываем созданные элементы в "коробочку"
   fragment.appendChild(pictureElement);
@@ -29,6 +30,7 @@ drawPicture.appendChild(fragment);
 
 
 // Подключите модуль в проект.
-export {fragment};
+export {drawPicture};
 
 
+////////////////////
