@@ -1,4 +1,4 @@
-import {getRandomInteger} from './get-random-integer';
+import {getRandomInteger} from './get-random-integer.js';
 
 const DESCRIPTION = [
   'смотрю в окно',

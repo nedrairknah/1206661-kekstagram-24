@@ -1,1 +1,4 @@
-import './generate-user';
+import './generate-user.js';
+import './draw-avatar.js';
+
+
