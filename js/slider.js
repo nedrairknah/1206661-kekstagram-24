@@ -18,6 +18,7 @@ const sepiaEffect = document.querySelector('.effects__radio--sepia');
 const marvinEffect = document.querySelector('.effects__radio--marvin');
 const phobosEffect = document.querySelector('.effects__radio--phobos');
 const heatEffect = document.querySelector('.effects__radio--heat');
+const effectPreviewChrome = document.querySelector('.effects__preview--chrome');
 
 
 scaleDown.addEventListener('click', (evt) => {
@@ -56,12 +57,20 @@ noUiSlider.create(slider, {
   step: 1,
   connect: 'lower',
 });
+// let valueEffect = 80;
 
+// подписываюсь на событие изменения слайдера - при перемещении слайдера
 slider.noUiSlider.on('update', (_, handle, unencoded) => {
-  sliderValue.value = unencoded[handle];
-  const valueEffect = sliderValue.value;
-  console.log(valueEffect) ;
+  //присваиваю значение переменной, которая ровняется положению слайдера
+  // sliderValue.value = unencoded[handle];
+  sliderValue.setAttribute('value', unencoded[handle]);
+  // перевоже в число
+  // valueEffect = Number(sliderValue.value);
+  //вывожу в консоль
+  console.log(sliderValue.value);
 });
+
+// console.log(valueEffect);
 
 
 noneEffect.addEventListener('click', (evt) => {
@@ -91,6 +100,10 @@ chromeEffect.addEventListener('click', (evt) => {
     start: 0.8,
     step: 0.1,
   });
+  // const begin = 'grayscale(';
+  // const end = ')';
+  imgPreview.style.filter = `grayscale(${Number(sliderValue.value)})`;
+  // effectPreviewChrome.style.filter = `grayscale${  valueEffect  }%`;
 });
 // imgPreview.style.filter = valueEffect.value;
 
@@ -98,9 +111,6 @@ chromeEffect.addEventListener('click', (evt) => {
 sepiaEffect.addEventListener('click', (evt) => {
   evt.preventDefault();
   sepiaEffect.checked;
-  if (sepiaEffect.checked) {
-    console.log('Sepia - yes');
-  }
   imgPreview.classList.add('effects__preview--sepia');
   imgPreview.classList.remove('effects__preview--chrome');
   imgPreview.classList.remove('effects__preview--marvin');
