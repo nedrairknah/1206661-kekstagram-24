@@ -1,3 +1,4 @@
+const MAX_COMMENTS_COUNT = 5;
 const picturePopup = document.querySelector('.big-picture');
 const bigPicture = picturePopup.querySelector('.big-picture__img img');
 const likesCount = picturePopup.querySelector('.likes-count');
@@ -17,6 +18,20 @@ const renderComment = (data) => {
   return commentElement;
 };
 
+const showMoreComments = () => {
+  const commentsArray = commentsList.querySelectorAll('.social__comment.hidden');
+  Array.from(commentsArray).slice(0, MAX_COMMENTS_COUNT).forEach((item) => item.classList.remove('hidden'));
+  const commentsAllArray = commentsList.querySelectorAll('.social__comment');
+  const commentsOpenedArray = commentsList.querySelectorAll('.social__comment:not(.hidden)');
+  const count = commentsOpenedArray.length;
+  socialCommentCount.textContent = count;
+  if (commentsAllArray.length === count) {
+    commentsLoader.classList.add('hidden');
+  } else {
+    commentsLoader.classList.remove('hidden');
+  }
+};
+
 const renderBigPicture = (data) => {
   const commentFragment = document.createDocumentFragment();
   bigPicture.src = data.url;
@@ -27,12 +42,16 @@ const renderBigPicture = (data) => {
     commentFragment.appendChild(renderComment(comment));
   });
   commentsList.appendChild(commentFragment);
+  const commentsArray = commentsList.querySelectorAll('.social__comment.hidden');
+  Array.from(commentsArray).slice(0, MAX_COMMENTS_COUNT).forEach((item) => item.classList.remove('hidden'));
   description.textContent = data.description;
-  socialCommentCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
+  socialCommentCount.textContent = data.comments.length < MAX_COMMENTS_COUNT ? data.comments.length : MAX_COMMENTS_COUNT;
+  if (data.comments.length <= MAX_COMMENTS_COUNT) {
+    commentsLoader.classList.add('hidden');
+  } else {
+    commentsLoader.classList.remove('hidden');
+  }
+  commentsLoader.addEventListener('click', showMoreComments);
 };
 
-export {
-  renderBigPicture,
-  picturePopup
-};
+export { renderBigPicture, picturePopup };
