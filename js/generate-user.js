@@ -103,7 +103,5 @@ const generateUser = () => {
 const USERS = Array.from({length: USER_AMOUNT}, generateUser);
 
 generateUser ();
-// eslint-disable-next-line no-console
-console.log(USERS);
 
 export {USERS};
