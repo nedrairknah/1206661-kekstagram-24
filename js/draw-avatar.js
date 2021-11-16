@@ -1,25 +1,27 @@
-import {USERS} from './generate-user.js';
 
 const drawPicture = document.querySelector('.pictures');
 
 const templateFragment = document.querySelector('#picture').content;
 const templateImage = templateFragment.querySelector('a');
 
-const similarPictures = USERS;
 
-const fragment = document.createDocumentFragment();
+const renderSimilarList = (similarPictures) => {
+  const similarListFragment = document.createDocumentFragment();
+
+  similarPictures.forEach(({url, likes, comments}) => {
+    const pictureElement = templateImage.cloneNode(true);
+    pictureElement.querySelector('.picture__img').src = url;
+    pictureElement.querySelector('.picture__likes').textContent = likes;
+    pictureElement.querySelector('.picture__comments').textContent = comments.length;
+    similarListFragment.appendChild(pictureElement);
+  });
+
+  drawPicture.appendChild(similarListFragment);
+};
+
+const clearSimilarList = () => {
+  drawPicture.innerHTML = '';
+};
 
 
-similarPictures.forEach(({url, likes, comments}) => {
-  const pictureElement = templateImage.cloneNode(true);
-  pictureElement.querySelector('.picture__img').src = url;
-  pictureElement.querySelector('.picture__likes').textContent = likes;
-  pictureElement.querySelector('.picture__comments').textContent = comments.length;
-
-  fragment.appendChild(pictureElement);
-});
-
-drawPicture.appendChild(fragment);
-
-
-export {drawPicture};
+export {renderSimilarList, clearSimilarList};

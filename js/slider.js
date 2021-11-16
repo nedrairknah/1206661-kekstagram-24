@@ -9,8 +9,6 @@ const effectsList = document.querySelector('.effects__list');
 const effectLevel = document.querySelector('.effect-level');
 const slider = document.querySelector('.effect-level__slider');
 
-//добавления фильтра на фото
-
 noUiSlider.create(slider, {
   range: {
     min: 0,
