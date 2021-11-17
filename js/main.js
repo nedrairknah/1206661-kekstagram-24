@@ -6,7 +6,8 @@ import { closeFormPopup } from './form.js';
 import { setUserFormSubmit } from './form-validation.js';
 import './scale.js';
 import './slider.js';
-import { getData } from './api.js';
+import { getData} from './api.js';
+import './filters.js';
 
 getData((profiles) => {
   renderSimilarList(profiles);

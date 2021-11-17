@@ -27,4 +27,5 @@ function getRandomPositiveInteger (a, b) {
   return Math.floor(result);
 }
 
-getRandomPositiveInteger();
+export {getRandomPositiveInteger};
+
